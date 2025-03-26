@@ -14,16 +14,12 @@ qa_database = {
 @app.route('/ask', methods=['GET'])
 def ask_question():
     user_question = request.args.get('question', '').lower().strip()
-
-    # Search for an answer
     answer = qa_database.get(user_question, "Sorry, I don't have an answer for that.")
-
     return jsonify({"question": user_question, "answer": answer})
 
 @app.route('/')
 def home():
     return jsonify({"message": "Welcome to the Simple Q&A API!"})
- 
-#if __name__ == '__main__':
-#    app.run(debug=True)
-serve(third,host='0.0.0.0' , port=8000)
+
+# Run Waitress server
+serve(app, host='0.0.0.0', port=8000)
