@@ -1,9 +1,9 @@
 from flask import Flask, request, jsonify
 from waitress import serve
+import os
 
 app = Flask(__name__)
 
-# Predefined Q&A database
 qa_database = {
     "what is ai": "AI (Artificial Intelligence) refers to the simulation of human intelligence in machines.",
     "what is python": "Python is a high-level programming language known for its simplicity and readability.",
@@ -21,5 +21,6 @@ def ask_question():
 def home():
     return jsonify({"message": "Welcome to the Simple Q&A API!"})
 
-# Run Waitress server
-serve(app, host='0.0.0.0', port=8000)
+if __name__ == '__main__':
+    port = int(os.environ.get("PORT", 8000))  # Default port for local testing
+    serve(app, host="0.0.0.0", port=port)
